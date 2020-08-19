@@ -28,8 +28,7 @@ def comment(n):
             except Exception:
                 print('Comment failed, waiting 10 minutes to retry...')
                 sleep(600)
-                continue
-            break
+                break
 
 #--- Calls ---#
 friends = []
