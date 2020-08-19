@@ -19,16 +19,17 @@ def get_list_of_friends(file_path='friends.txt'):
             line = fp.readline()
 
 def comment(n):
-    for i in range(0, n):
-        while True:
-            try:
-                bot.comment(bot.generate_tags(friends, 2))
-                sleep(5)
-                print('Commented ',i)
-            except Exception:
-                print('Comment failed, waiting 10 minutes to retry...')
-                sleep(600)
-                break
+    i = 0
+    while i < n:
+        try:
+            bot.comment(bot.generate_tags(friends, 2))
+            i += 1
+            print('Commented ',i)
+            sleep(5)
+        except Exception:
+            print('Comment failed, waiting 10 minutes to retry...')
+            sleep(600)
+            break
 
 #--- Calls ---#
 friends = []
