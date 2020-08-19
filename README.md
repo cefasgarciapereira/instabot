@@ -33,7 +33,7 @@ On the other hand, this way should be easier for less experienced users, as it i
 # Documentação em Português
 
 ## Como usar?
-Independentemente de como você decide executar o programa, você deverá realizar as seguintes etapas:
+Independentemente de como você decidir executar o programa, você deverá realizar as seguintes etapas:
 
 
 1. Informar seu usuário do Instagram sem o @
@@ -52,9 +52,9 @@ Sua lista de amigos deve estar disponível em um arquivo `friends.txt`, cujo cad
 @amigo3
 ```
 
-### Source Code
+### Código Fonte
 Se você é um programador e deseja usar o programa através do código-fonte, basta cloná-lo, instalar suas dependências através do comando `pip install` e executar o app.py através do` python app.py`.
 
-### Executable File
+### Arquivo Executável
 Esta forma pode ser um pouco menos estável, pois depende de alguém que faça a compilação do programa o que pode implicar em versões diferentes do executável para o código fonte. Por outro lado, esta forma deve ser mais fácil para usuários menos experientes, pois basta executar o programa `.exe`.
 
