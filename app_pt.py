@@ -5,7 +5,7 @@ from time import sleep
 #--- Start ---#
 print('Olá! Seja bem vindo ao InstaBot :)')
 username = input('Insira seu usuário: ')
-password = getpass.getpass('Insira sua senha: ')
+password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
 url = input('Insira a URL do sorteio: ')
 number_of_posts = int(input('Informe o número de comentários que deseja: '))
 number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
@@ -38,5 +38,7 @@ get_list_of_friends()
 bot = InstaBot(username, password)
 bot.navigate_to(url)
 comment(number_of_posts, number_of_friends)
+print('Processo finalizado')
+sleep(7)
 #.?PFJ3uLvk
 #https://www.instagram.com/p/CECVkAZJWSt/

@@ -18,7 +18,7 @@ def get_list_of_friends(file_path='friends.txt'):
             friends.append(name)
             line = fp.readline()
 
-def comment(n):
+def comment(n, n_friends):
     i = 0
     while i < n:
         try:
@@ -36,6 +36,6 @@ friends = []
 get_list_of_friends()
 bot = InstaBot(username, password)
 bot.navigate_to(url)
-comment(number_of_posts)
+comment(number_of_posts, number_of_friends)
 #.?PFJ3uLvk
 #https://www.instagram.com/p/CECVkAZJWSt/

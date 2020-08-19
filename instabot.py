@@ -34,7 +34,7 @@ class InstaBot:
     
     #Generate a string containg tags of friends from a list
     def generate_tags(self, lst, number_of_friends):
-        sub = np.random.choice(lst,2, replace=False)
+        sub = np.random.choice(lst,number_of_friends, replace=False)
         response = ''
         for s in sub:
             response += s+' '
