@@ -10,7 +10,6 @@ Regardless of how you decide to run the program, you must perform the following 
 1. Inform your instagram user without @
 2. Inform your password, which will not be saved anywhere
 3. Inform the URL of the contest post that you want to participate
-4. Number of comments you want the program to make
 5. Number of friends that will be marked by comment
 
 Your friends list should be available in a `friends.txt` file, each line referring to a friend with your @, for example:
@@ -39,7 +38,6 @@ Independentemente de como você decidir executar o programa, você deverá reali
 1. Informar seu usuário do Instagram sem o @
 2. Informar sua senha, que não será salva em lugar algum
 3. Informar a URL da postagem do concurso que você deseja participar
-4. Número de comentários que você deseja que o programa faça
 5. Número de amigos que serão marcados por comentário
 
 Sua lista de amigos deve estar disponível em um arquivo `friends.txt`, cujo cada linha se refere a um amigo com seu @, por exemplo:

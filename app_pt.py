@@ -3,11 +3,11 @@ import getpass
 from time import sleep
 
 #--- Start ---#
-print('Olá! Seja bem vindo ao InstaBot :)')
+print('Primeiramente, eu te amo! <3')
+print('Segundamente, Seja bem vinda ao InstaBot :)')
 username = input('Insira seu usuário: ')
 password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
 url = input('Insira a URL do sorteio: ')
-number_of_posts = int(input('Informe o número de comentários que deseja: '))
 number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
 
 #--- Application --- #
@@ -19,26 +19,25 @@ def get_list_of_friends(file_path='friends.txt'):
             friends.append(name)
             line = fp.readline()
 
-def comment(n, n_friends):
+def comment(n_friends):
     i = 0
-    while i < n:
+    while True:
         try:
             bot.comment(bot.generate_tags(friends, n_friends))
             i += 1
             print(i, ' Comentários')
-            sleep(5)
+            sleep(65)
         except Exception:
+            print(Exception)
             print('Você atingiu o limite de requisições. O programa tentará novamente em 10 minutos...')
             sleep(600)
-            break
+            continue
 
 #--- Calls ---#
 friends = []
 get_list_of_friends()
 bot = InstaBot(username, password)
 bot.navigate_to(url)
-comment(number_of_posts, number_of_friends)
+comment(number_of_friends)
 print('Processo finalizado')
 sleep(7)
-#.?PFJ3uLvk
-#https://www.instagram.com/p/CECVkAZJWSt/
