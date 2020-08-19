@@ -27,6 +27,7 @@ class InstaBot:
         self.driver.find_element_by_class_name('Ypffh').send_keys(text)
         sleep(2)
         self.driver.find_element_by_xpath('//button[contains(text(), "Publicar")]').click()
+        sleep(5)
     
     def generate_tags(self, lst, number_of_friends):
         sub = np.random.choice(lst,2, replace=False)
