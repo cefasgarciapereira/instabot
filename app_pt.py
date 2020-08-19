@@ -3,8 +3,7 @@ import getpass
 from time import sleep
 
 #--- Start ---#
-print('Primeiramente, eu te amo! <3')
-print('Segundamente, Seja bem vinda ao InstaBot :)')
+print('Olá, Seja bem vindo(a) ao InstaBot :)')
 username = input('Insira seu usuário: ')
 password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
 url = input('Insira a URL do sorteio: ')
