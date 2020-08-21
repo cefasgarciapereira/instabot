@@ -26,10 +26,8 @@ def comment(n_friends):
             i += 1
             print(i, ' Comentários')
             sleep(65)
-        except Exception:
-            print(Exception)
-            print('Você atingiu o limite de requisições. O programa tentará novamente em 10 minutos...')
-            sleep(600)
+        except Exception as err:
+            print(err)
             continue
 
 #--- Calls ---#

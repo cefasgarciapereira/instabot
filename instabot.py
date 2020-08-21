@@ -27,10 +27,10 @@ class InstaBot:
     
     #Type and submit a text inside the Ypffh field
     def comment(self, text):
-        self.driver.find_element_by_class_name('Ypffh').click()
-        self.driver.find_element_by_class_name('Ypffh').send_keys(text)
+        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/textarea').click()
+        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/textarea').send_keys(text)
         sleep(2)
-        self.driver.find_element_by_xpath('//button[contains(text(), "Publicar")]').click()
+        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/button').click()
         sleep(5)
     
     #Generate a string containg tags of friends from a list
