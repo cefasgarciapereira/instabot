@@ -3,10 +3,11 @@ import getpass
 from time import sleep
 
 #--- Start ---#
-username = input('Insert your @username: ')
-password = getpass.getpass('Insert your password (the text wont be shown): ')
-url = input('Insert the contest URL: ')
-number_of_friends = int(input('Inform the number of friends to be tagged: '))
+print('Olá, Seja bem vindo(a) ao InstaBot :)')
+username = input('Insira seu usuário: ')
+password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
+url = input('Insira a URL do sorteio: ')
+number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
 
 #--- Application --- #
 def get_list_of_friends(file_path='friends.txt'):
@@ -21,20 +22,19 @@ def comment(n_friends):
     i = 0
     while True:
         try:
-            bot.comment(bot.generate_tags(friends, 2))
+            bot.comment(bot.generate_tags(friends, n_friends))
             i += 1
-            print('Commented ',i)
-            sleep(5)
-        except Exception:
-            print(Exception)
-            print('Comment failed, waiting 10 minutes to retry...')
-            sleep(600)
-            break
+            print(i, ' Comentários')
+            sleep(65)
+        except Exception as err:
+            print(err)
+            continue
+
 #--- Calls ---#
 friends = []
 get_list_of_friends()
 bot = InstaBot(username, password)
 bot.navigate_to(url)
 comment(number_of_friends)
-#.?PFJ3uLvk
-#https://www.instagram.com/p/CECVkAZJWSt/
+print('Processo finalizado')
+sleep(7)
