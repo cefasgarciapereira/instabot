@@ -30,7 +30,6 @@ def comment(n_friends):
             print('Comment failed, waiting 10 minutes to retry...')
             sleep(600)
             break
-
 #--- Calls ---#
 friends = []
 get_list_of_friends()
