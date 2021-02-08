@@ -1,13 +1,14 @@
 from instabot import InstaBot
 import getpass
 from time import sleep
+import settings
 
 #--- Start ---#
-print('Olá, Seja bem vindo(a) ao InstaBot :)')
-username = input('Insira seu usuário: ')
-password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
-url = input('Insira a URL do sorteio: ')
-number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
+#print('Olá, Seja bem vindo(a) ao InstaBot :)')
+#username = input('Insira seu usuário: ')
+#password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
+#url = input('Insira a URL do sorteio: ')
+#number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
 
 #--- Application --- #
 def get_list_of_friends(file_path='friends.txt'):
@@ -33,8 +34,8 @@ def comment(n_friends):
 #--- Calls ---#
 friends = []
 get_list_of_friends()
-bot = InstaBot(username, password)
-bot.navigate_to(url)
-comment(number_of_friends)
+bot = InstaBot(settings.username, settings.password)
+bot.navigate_to(settings.post)
+comment(settings.friends)
 print('Processo finalizado')
 sleep(7)
