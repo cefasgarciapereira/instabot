@@ -35,8 +35,11 @@ class InstaBot:
                 sleep(20)
         except Exception:
             pass
-        self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div/div/button').click()
-        self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]').click()
+        try:
+            self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div/div/button').click()
+            self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]').click()
+        except:
+            print("O programa não conseguiu pular os avisos automaticamente, você terá 25 segundos para fecha-los")
     
     #Go to specific link
     def navigate_to(self, url):
