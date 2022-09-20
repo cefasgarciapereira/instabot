@@ -1,2 +1,2 @@
 python -m pip install -U pyinstaller
-pyinstaller --onefile app.py
+pyinstaller --onefile --windowed --icon="./assets/icon.ico" app.py
