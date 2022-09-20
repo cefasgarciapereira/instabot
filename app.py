@@ -1,14 +1,28 @@
 from instabot import InstaBot
 import getpass
 from time import sleep
-import settings
+import json
 
 #--- Start ---#
-print('Olá, Seja bem vindo(a) ao InstaBot :)')
-username = input('Insira seu usuário: ')
-password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
-post = input('Insira a URL do sorteio: ')
-number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
+print('Olá, Seja bem vindo(a) ao InstaBot :)\n')
+f = open('logo.txt', 'r')
+print (f.read())
+f.close()
+flux = input('Deseja ler os dados de settings.json? \n\nSim: [s/sim] Não: [n/não]\n\n=> ')
+
+if(flux == "s" or flux == "sim"):
+    f = open('settings.json')
+    settings = json.load(f)
+    username = settings['username']
+    password = settings['password']
+    post = settings['post_url']
+    number_of_friends = settings['number_of_friends']
+    f.close()
+else:
+    username = input('Insira seu usuário: ')
+    password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
+    post = input('Insira a URL do sorteio: ')
+    number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
 
 #--- Application --- #
 friends = []
@@ -40,11 +54,3 @@ bot.navigate_to(post)
 comment(number_of_friends)
 print('Processo finalizado')
 sleep(7)
-
-#--- Calls (Settings) ---#
-#get_list_of_friends()
-#bot = InstaBot(settings.username, settings.password)
-#bot.navigate_to(settings.post)
-#comment(settings.number_of_friends)
-#print('Processo finalizado')
-#sleep(7)
