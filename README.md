@@ -12,7 +12,19 @@ Regardless of how you decide to run the program, you must perform the following 
 3. Inform the URL of the contest post that you want to participate
 5. Number of friends that will be marked by comment
 
-Your friends list should be available in a `friends.txt` file, each line referring to a friend with your @, for example:
+These fields can be informed in two ways. You can inform it while te program is running or write a file called `settings.json` like below:
+
+```json
+# settings.json
+{
+    "username": "<insert_your_username>",
+    "password": "<insert_your_password>",
+    "post_url": "<insert_post_url>",
+    "number_of_friends": 2 // this line should not contain quotes
+}
+```
+
+You also must provide a friends list in a text file named as `friends.txt`, with each line referring to a friend with its @, for example:
 
 ```
 # friends.txt
@@ -32,7 +44,7 @@ On the other hand, this way should be easier for less experienced users, as it i
 # Documentação em Português
 
 ## Como usar?
-Independentemente de como você decidir executar o programa, você deverá realizar as seguintes etapas:
+Independentemente de como você decidir executar o programa, você deverá realizar os seguintes campos:
 
 
 1. Informar seu usuário do Instagram sem o @
@@ -40,6 +52,17 @@ Independentemente de como você decidir executar o programa, você deverá reali
 3. Informar a URL da postagem do concurso que você deseja participar
 5. Número de amigos que serão marcados por comentário
 
+Esses campos podem ser informados de duas formas. Você pode informá-los enquanto o programa está rodando ou escrever um arquivo chamado `settings.json` como abaixo:
+
+```json
+# settings.json
+{
+    "username": "<substitua_pelo_seu_usuário>",
+    "password": "<substitua_pela_sua_senha>",
+    "post_url": "<substitua_pela_url_do_post>",
+    "number_of_friends": 2 // esta linha não deve conter as aspas no número
+}
+```
 Sua lista de amigos deve estar disponível em um arquivo `friends.txt`, cujo cada linha se refere a um amigo com seu @, por exemplo:
 
 ```
