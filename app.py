@@ -4,13 +4,15 @@ from time import sleep
 import settings
 
 #--- Start ---#
-#print('Olá, Seja bem vindo(a) ao InstaBot :)')
-#username = input('Insira seu usuário: ')
-#password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
-#url = input('Insira a URL do sorteio: ')
-#number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
+print('Olá, Seja bem vindo(a) ao InstaBot :)')
+username = input('Insira seu usuário: ')
+password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
+post = input('Insira a URL do sorteio: ')
+number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
 
 #--- Application --- #
+friends = []
+
 def get_list_of_friends(file_path='friends.txt'):
     with open(file_path) as fp:
         line = fp.readline()
@@ -31,11 +33,18 @@ def comment(n_friends):
             print(err)
             continue
 
-#--- Calls ---#
-friends = []
+#--- Calls (Interface) ---#
 get_list_of_friends()
-bot = InstaBot(settings.username, settings.password)
-bot.navigate_to(settings.post)
-comment(settings.friends)
+bot = InstaBot(username, password)
+bot.navigate_to(post)
+comment(number_of_friends)
 print('Processo finalizado')
 sleep(7)
+
+#--- Calls (Settings) ---#
+#get_list_of_friends()
+#bot = InstaBot(settings.username, settings.password)
+#bot.navigate_to(settings.post)
+#comment(settings.number_of_friends)
+#print('Processo finalizado')
+#sleep(7)

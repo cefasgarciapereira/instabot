@@ -20,13 +20,23 @@ class InstaBot:
             #self.driver = webdriver.Chrome(executable_path="./chromedriver")
         self.driver.get("https://instagram.com")
         sleep(2)
-        self.driver.find_element_by_xpath("/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input").send_keys(username)
-        self.driver.find_element_by_xpath("/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input").send_keys(password)
+        self.driver.find_element("xpath","/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input").send_keys(username)
+        self.driver.find_element("xpath","/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[2]/div/label/input").send_keys(password)
         sleep(2)
-        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[3]/button/div').click()
-        sleep(5)
-        self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
+        self.driver.find_element("xpath",'/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]/button').click()
         sleep(2)
+        try:
+            # wait for 2 factor authetication
+            two_factor_authentication = self.driver.find_element("xpath",'/html/body/div[1]/section/main/div/div/div[1]/div[2]/div')
+            print("two factor?")
+            print(two_factor_authentication)
+            if(two_factor_authentication):
+                print("Insira o código de autenticação de 2 fatores (pausa de 20 segundos)")
+                sleep(20)
+        except Exception:
+            pass
+        self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div/div/button').click()
+        self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]').click()
     
     #Go to specific link
     def navigate_to(self, url):
@@ -35,10 +45,10 @@ class InstaBot:
     
     #Type and submit a text inside the Ypffh field
     def comment(self, text):
-        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/textarea').click()
-        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/textarea').send_keys(text)
+        self.driver.find_element('xpath','/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/textarea').click()
+        self.driver.find_element('xpath','/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/textarea').send_keys(text)
         sleep(2)
-        self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/button[2]').click()
+        self.driver.find_element('xpath','/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/button').click()
         sleep(5)
     
     #Generate a string containg tags of friends from a list
