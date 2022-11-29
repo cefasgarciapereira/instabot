@@ -3,6 +3,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import numpy as np
+import sys
 
 class InstaBot:
     #Initialize the session
@@ -17,29 +18,39 @@ class InstaBot:
             self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path="./chromedriver")
         else:
             self.driver = webdriver.Chrome(ChromeDriverManager().install())
-            #self.driver = webdriver.Chrome(executable_path="./chromedriver")
+
         self.driver.get("https://instagram.com")
         sleep(2)
-        self.driver.find_element("xpath","/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[1]/div/label/input").send_keys(username)
-        self.driver.find_element("xpath","/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[2]/div/label/input").send_keys(password)
-        sleep(2)
-        self.driver.find_element("xpath",'/html/body/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[3]/button').click()
-        sleep(2)
+        
+        try:
+            self.driver.find_element("xpath", "//input[@name = 'username']").send_keys(username)
+            self.driver.find_element("xpath", "//input[@name = 'password']").send_keys(password)
+            self.driver.find_element("xpath", "//button[@type = 'submit']").click()
+            sleep(2)
+        except Exception as err:
+            print("Error during login: ")
+            print(err)
+        
+        # 2-factor authentication
         try:
             # wait for 2 factor authetication
-            two_factor_authentication = self.driver.find_element("xpath",'/html/body/div[1]/section/main/div/div/div[1]/div[2]/div')
-            print("two factor?")
-            print(two_factor_authentication)
-            if(two_factor_authentication):
+            two_factor_authentication = self.driver.find_element("xpath", "//input[@name = 'verificationCode']")
+            if(bool(two_factor_authentication)):
                 print("Insira o código de autenticação de 2 fatores (pausa de 20 segundos)")
                 sleep(20)
-        except Exception:
+        except Exception as err:
+            print("No field was identified for 2-factor authentication: ")
+            print(err)
+            sleep(20)
             pass
+        
+        # close alerts
         try:
-            self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div/div/div/div/button').click()
-            self.driver.find_element("xpath",'/html/body/div[1]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]').click()
+            self.driver.find_element("xpath", "//button[text() = 'Agora não']").click()
+            sleep(2)
+            self.driver.find_element("xpath", "//button[text() = 'Agora não']").click()
         except:
-            print("O programa não conseguiu pular os avisos automaticamente, você terá 25 segundos para fecha-los")
+            print("Failed to skip warnings automatically, you will have 25 seconds to close them.")
     
     #Go to specific link
     def navigate_to(self, url):
@@ -48,10 +59,10 @@ class InstaBot:
     
     #Type and submit a text inside the Ypffh field
     def comment(self, text):
-        self.driver.find_element('xpath','/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/textarea').click()
-        self.driver.find_element('xpath','/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/textarea').send_keys(text)
+        self.driver.find_element("xpath", "//textarea[@placeholder = 'Adicione um comentário...']").click()
+        self.driver.find_element("xpath", "//textarea[@placeholder = 'Adicione um comentário...']").send_keys(text)
         sleep(2)
-        self.driver.find_element('xpath','/html/body/div[1]/div/div/div/div[1]/div/div/div/div[1]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/button').click()
+        self.driver.find_element("xpath", "//button[@type = 'submit']").click()
         sleep(5)
     
     #Generate a string containg tags of friends from a list
