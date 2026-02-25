@@ -1,48 +1,67 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
 import numpy as np
+import shutil
 import sys
+
+def _find_browser():
+    if sys.platform == "win32":
+        candidates = [
+            r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+            r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        ]
+        return next((p for p in candidates if shutil.os.path.exists(p)), None)
+    else:
+        candidates = ["google-chrome", "google-chrome-stable", "chromium", "chromium-browser"]
+        return next((shutil.which(c) for c in candidates if shutil.which(c)), None)
 
 class InstaBot:
     #Initialize the session
-    def __init__(self, username, password, headless=False):
+    def __init__(self, username, password, headless=False, auth_code=None):
         self.username = username
-        
+
+        chrome_options = Options()
+        browser_path = _find_browser()
+        if browser_path:
+            chrome_options.binary_location = browser_path
         if(headless):
-            chrome_options = Options()
             chrome_options.add_argument('--headless')
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('--disable-dev-shm-usage')
-            self.driver = webdriver.Chrome(chrome_options=chrome_options, executable_path="./chromedriver")
-        else:
-            self.driver = webdriver.Chrome(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(options=chrome_options)
 
         self.driver.get("https://instagram.com")
         sleep(2)
         
         try:
-            self.driver.find_element("xpath", "//input[@name = 'username']").send_keys(username)
-            self.driver.find_element("xpath", "//input[@name = 'password']").send_keys(password)
-            self.driver.find_element("xpath", "//button[@type = 'submit']").click()
+            self.driver.find_element("xpath", "//input[@name = 'email']").send_keys(username)
+            self.driver.find_element("xpath", "//input[@name = 'pass']").send_keys(password)
+            self.driver.find_element("xpath",  "//div[@aria-label = 'Log In']").click()
             sleep(2)
         except Exception as err:
             print("Error during login: ")
             print(err)
         
         # 2-factor authentication
-        try:
-            # wait for 2 factor authetication
-            two_factor_authentication = self.driver.find_element("xpath", "//input[@name = 'verificationCode']")
-            if(bool(two_factor_authentication)):
-                print("Insira o código de autenticação de 2 fatores (pausa de 20 segundos)")
-                sleep(20)
-        except Exception as err:
-            print("No field was identified for 2-factor authentication: ")
-            print(err)
-            sleep(20)
-            pass
+        if auth_code:
+            try:
+                print("Aguardando página de autenticação de 2 fatores...")
+                WebDriverWait(self.driver, 15).until(
+                    lambda d: "/accounts/login/two_factor" in d.current_url
+                )
+                self.driver.find_element("xpath", "//input[@aria-label='Security Code']").send_keys(auth_code)
+                sleep(1)
+                try:
+                    self.driver.find_element("xpath", "//button[text()='Confirm']").click()
+                except:
+                    self.driver.find_element("xpath", "//button[text()='Confirmar']").click()
+                sleep(3)
+                print("Autenticação de 2 fatores concluída.")
+            except Exception as err:
+                print("Erro na autenticação de 2 fatores: ")
+                print(err)
         
         # close alerts
         try:
@@ -50,7 +69,12 @@ class InstaBot:
             sleep(2)
             self.driver.find_element("xpath", "//button[text() = 'Agora não']").click()
         except:
-            print("Failed to skip warnings automatically, you will have 25 seconds to close them.")
+            try:
+                self.driver.find_element("xpath", "//button[text() = 'Not now']").click()
+                sleep(2)
+                self.driver.find_element("xpath", "//button[text() = 'Not now']").click()
+            except:
+                print("Failed to skip warnings automatically, you will have 25 seconds to close them.")
     
     #Go to specific link
     def navigate_to(self, url):
@@ -59,10 +83,10 @@ class InstaBot:
     
     #Type and submit a text inside the Ypffh field
     def comment(self, text):
-        self.driver.find_element("xpath", "//textarea[@placeholder = 'Adicione um comentário...']").click()
-        self.driver.find_element("xpath", "//textarea[@placeholder = 'Adicione um comentário...']").send_keys(text)
+        self.driver.find_element("xpath", "//textarea[@placeholder = 'Add a comment…']").click()
+        self.driver.find_element("xpath", "//textarea[@placeholder = 'Add a comment…']").send_keys(text)
         sleep(2)
-        self.driver.find_element("xpath", "//button[@type = 'submit']").click()
+        self.driver.find_element("xpath", "//div[text() = 'Post']").click()
         sleep(5)
     
     #Generate a string containg tags of friends from a list

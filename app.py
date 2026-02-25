@@ -47,6 +47,7 @@ try:
             password = settings['password']
             post = settings['post_url']
             number_of_friends = settings['number_of_friends']
+            auth_code = settings.get('auth_code', None)
             f.close()
         except Exception:
             print("Erro ao carregar dados de settings.json")
@@ -55,6 +56,7 @@ try:
         password = getpass.getpass('Insira sua senha (o conteúdo não será exibido): ')
         post = input('Insira a URL do sorteio: ')
         number_of_friends = int(input('Informe o número de amigos que devem ser marcados: '))
+        auth_code = None
 
     #--- Application --- #
     friends = []
@@ -83,7 +85,7 @@ try:
     #--- Calls ---#
     try:
         get_list_of_friends()
-        bot = InstaBot(username, password)
+        bot = InstaBot(username, password, auth_code=auth_code)
         bot.navigate_to(post)
         comment(number_of_friends)
         print('Processo finalizado')
