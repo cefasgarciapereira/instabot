@@ -20,6 +20,7 @@ These fields can be informed in two ways. You can inform it while te program is 
     "username": "<insert_your_username>",
     "password": "<insert_your_password>",
     "post_url": "<insert_post_url>",
+    "auth_code": "<insert_2_step_authentication_code>" // optional
     "number_of_friends": 2 // this line should not contain quotes
 }
 ```
